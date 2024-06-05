@@ -1,0 +1,23 @@
+{
+    "include": [
+        {
+            "test alias": "foo",
+            "estimators": [
+                "NeuralForecastRNN"
+            ],
+            "dependencies": [
+                "neuralforecast==1.7.0",
+                "statsmodels==0.14.1"
+            ]
+        },
+        {
+            "test alias": "bar",
+            "estimators": [
+                "SimpleRNNRegressor"
+            ],
+            "dependencies": [
+                "tensorflow"
+            ]
+        }
+    ]
+}

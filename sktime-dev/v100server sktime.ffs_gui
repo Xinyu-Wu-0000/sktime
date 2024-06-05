@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FreeFileSync XmlType="GUI" XmlFormat="23">
+    <Notes/>
+    <Compare>
+        <Variant>TimeAndSize</Variant>
+        <Symlinks>Exclude</Symlinks>
+        <IgnoreTimeShift/>
+    </Compare>
+    <Synchronize>
+        <Differences LeftOnly="right" LeftNewer="right" RightNewer="right" RightOnly="right"/>
+        <DeletionPolicy>RecycleBin</DeletionPolicy>
+        <VersioningFolder Style="Replace"/>
+    </Synchronize>
+    <Filter>
+        <Include>
+            <Item>*</Item>
+        </Include>
+        <Exclude>
+            <Item>*/.Trash-*/</Item>
+            <Item>*/.recycle/</Item>
+            <Item>env</Item>
+            <Item>build</Item>
+            <Item>htmlcov</Item>
+            <Item>.pytest_cache</Item>
+            <Item>testdir</Item>
+            <Item>.vscode</Item>
+            <Item>*/__pycache__/</Item>
+            <Item>*.pytest_cache</Item>
+            <Item>/.git/</Item>
+            <Item>/sktime.egg-info/</Item>
+            <Item>/coverage.xml</Item>
+            <Item>/.coverage</Item>
+            <Item>*/.coverage.zkti-SYS-7049GP-TRT*</Item>
+            <Item>*/.coverage.xinyu-asus-desktop*</Item>
+            <Item>*/lightning_logs/</Item>
+        </Exclude>
+        <SizeMin Unit="None">0</SizeMin>
+        <SizeMax Unit="None">0</SizeMax>
+        <TimeSpan Type="None">0</TimeSpan>
+    </Filter>
+    <FolderPairs>
+        <Pair>
+            <Left>/home/xinyu/Documents/sktime</Left>
+            <Right>sftp://xinyu@10.249.40.184:6000/home/xinyu/SSD400G/sktime|chan=50|keyfile=/home/xinyu/.ssh/V100server_xinyu</Right>
+        </Pair>
+    </FolderPairs>
+    <Errors Ignore="false" Retry="0" Delay="5"/>
+    <PostSyncCommand Condition="Completion"/>
+    <LogFolder/>
+    <EmailNotification Condition="Always"/>
+    <GridViewType>Action</GridViewType>
+</FreeFileSync>
