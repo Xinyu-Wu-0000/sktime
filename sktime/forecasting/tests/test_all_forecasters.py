@@ -856,14 +856,16 @@ class TestAllGlobalForecasters(TestAllObjects):
         )
         return global_forecast
 
-    def test_global_forecasting_multiindex_hier(self, estimator_instance):
+    @pytest.mark.parametrize("index_type", ["period", "datetime", "range", "int"])
+    def test_global_forecasting_multiindex_hier(self, estimator_instance, index_type):
         if not self._check_global_tag(estimator_instance):
             return None
 
         max_prediction_length = 3
         fh = ForecastingHorizon(range(1, max_prediction_length + 1), is_relative=True)
         X_train, y_train, X_test, y_test = self._multiindex_hier_data(
-            max_prediction_length
+            index_type=index_type,
+            max_prediction_length=max_prediction_length,
         )
         estimator_instance.fit(y_train, X_train, fh=fh)
 
@@ -876,13 +878,17 @@ class TestAllGlobalForecasters(TestAllObjects):
 
         self._check_consistency(y_test, y_pred)
 
-    def test_global_forecasting_multiindex(self, estimator_instance):
+    @pytest.mark.parametrize("index_type", ["period", "datetime", "range", "int"])
+    def test_global_forecasting_multiindex(self, estimator_instance, index_type):
         if not self._check_global_tag(estimator_instance):
             return None
 
         max_prediction_length = 3
         fh = ForecastingHorizon(range(1, max_prediction_length + 1), is_relative=True)
-        X_train, y_train, X_test, y_test = self._multiindex_data(max_prediction_length)
+        X_train, y_train, X_test, y_test = self._multiindex_data(
+            index_type=index_type,
+            max_prediction_length=max_prediction_length,
+        )
 
         estimator_instance.fit(y_train, X_train, fh=fh)
 
@@ -1141,7 +1147,9 @@ class TestAllGlobalForecasters(TestAllObjects):
             data = data.iloc[:-n]
         return data
 
-    def _multiindex_data(self, max_prediction_length, data_length=100):
+    def _multiindex_data(
+        self, max_prediction_length, data_length=100, index_type="datetime"
+    ):
         from sktime.utils._testing.hierarchical import _make_hierarchical
 
         data = _make_hierarchical(
@@ -1149,6 +1157,7 @@ class TestAllGlobalForecasters(TestAllObjects):
             n_columns=2,
             max_timepoints=data_length,
             min_timepoints=data_length,
+            index_type=index_type,
         )
         data = data.droplevel(1)
         from sklearn.model_selection import train_test_split
@@ -1166,7 +1175,9 @@ class TestAllGlobalForecasters(TestAllObjects):
         y_test = self._remove_last_n(y_test, max_prediction_length)
         return X_train, y_train, X_test, y_test
 
-    def _multiindex_hier_data(self, max_prediction_length, data_length=100):
+    def _multiindex_hier_data(
+        self, max_prediction_length, data_length=100, index_type="datetime"
+    ):
         from sktime.utils._testing.hierarchical import _make_hierarchical
 
         data = _make_hierarchical(
@@ -1174,6 +1185,7 @@ class TestAllGlobalForecasters(TestAllObjects):
             n_columns=2,
             max_timepoints=data_length,
             min_timepoints=data_length,
+            index_type=index_type,
         )
         from sklearn.model_selection import train_test_split
 
